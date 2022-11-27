@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,8 +51,64 @@ public class BoardService {
 		return list;
 	}
 
-	public int insertBoard() {
-		return 0;
+	public int insertBoard(Board board) {
+		int result = 0;
+
+		String sql = "INSERT INTO BOARD(TITLE, WRITER, CONTENT) VALUES (?,?,?)";
+		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url, "PRACTICE2", "1111");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, board.getTitle());
+			st.setString(2, board.getWriter());
+			st.setString(3, board.getContent());
+			result = st.executeUpdate();
+
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public Board getBoard(int id) {
+		Board board = null;
+
+		String sql = "SELECT * FROM BOARD WHERE ID = ?";
+		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url, "PRACTICE2", "1111");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) {
+				int nid = rs.getInt("ID");
+				String title = rs.getString("TITLE");
+				String writer = rs.getString("WRITER");
+				Date regDate = rs.getDate("regDate");
+				int views = rs.getInt("VIEWS");
+				String content = rs.getString("CONTENT");
+
+				board = new Board(nid, title, writer, regDate, views, content);
+			}
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return board;
 	}
 
 	public int deleteBoard() {
