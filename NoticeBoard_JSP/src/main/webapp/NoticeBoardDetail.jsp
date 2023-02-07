@@ -42,30 +42,31 @@
     <div class="container">
 
       <h3>작성된 글</h3>
-      <form action="#" class="col-12">
+      <form action="update" class="col-12" method="post">
+      <input type="hidden" name="id" id ="id" value="${n.id}">
         <div class="form-group mt-3">
           <label for="title" class="col-form-label">제목 :</label>
-          <input type="text" id="title" class="form-control" placeholder="제목을 표시하기." value="${n.title }">
+          <input type="text" name="title" id="title" class="form-control" placeholder="제목을 표시하기." value="${n.title }">
         </div>
         <div class="form-group mt-3 col-12 d-inline-flex">
           <div class="form-group mt-3 col-6">
             <label for="writer" class="col-form-label">작성자 :</label>
-            <input type="text" id="writer" class="form-control" placeholder="작성자를 표시하기." value="${n.writer }">
+            <input type="text" name="writer" id="writer" class="form-control" placeholder="작성자를 표시하기." value="${n.writer }">
           </div>
           <div class="form-group mt-3 col-3">
             <label for="" class="col-form-label">조회수 :</label>
-            <input type="text" id="views" class="form-control" style="pointer-events: none;" placeholder="조회수를 표시하기."
+            <input type="text" name="views" id="views" class="form-control" style="pointer-events: none;" placeholder="조회수를 표시하기."
               value="${n.views }">
           </div>
           <div class="form-group mt-3 col-3">
             <label for="" class="col-form-label">작성일 :</label>
-            <input type="text" id="regDate" class="form-control" style="pointer-events: none;" placeholder="작성일을 표시하기."
+            <input type="text" name="regDate" id="regDate" class="form-control" style="pointer-events: none;" placeholder="작성일을 표시하기."
               value="${n.regDate }">
           </div>
         </div>
         <div class="form-group mt-3">
           <label for="content" class="col-form-label ">내용 :</label>
-          <textarea name="" id="content" cols="30" rows="10" class="form-control"
+          <textarea name="content" id="content" cols="30" rows="10" class="form-control"
             placeholder="내용을 표시하기.">${n.content }</textarea>
         </div>
 

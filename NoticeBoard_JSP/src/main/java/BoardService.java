@@ -76,7 +76,7 @@ public class BoardService {
 		return result;
 	}
 
-	public Board getBoard(int id) {
+	public Board getBoard(int nid) {
 		Board board = null;
 
 		String sql = "SELECT * FROM BOARD WHERE ID = ?";
@@ -86,18 +86,18 @@ public class BoardService {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Connection con = DriverManager.getConnection(url, "PRACTICE2", "1111");
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, id);
+			st.setInt(1, nid);
 			ResultSet rs = st.executeQuery();
 
 			if (rs.next()) {
-				int nid = rs.getInt("ID");
+				int id = rs.getInt("ID");
 				String title = rs.getString("TITLE");
 				String writer = rs.getString("WRITER");
 				Date regDate = rs.getDate("regDate");
 				int views = rs.getInt("VIEWS");
 				String content = rs.getString("CONTENT");
 
-				board = new Board(nid, title, writer, regDate, views, content);
+				board = new Board(id, title, writer, regDate, views, content);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -111,11 +111,34 @@ public class BoardService {
 		return board;
 	}
 
-	public int deleteBoard() {
+	public int updateBoard(int id, String title, String writer, String content) {
+		// nid가 같은
+		String sql = "UPDATE BOARD SET TITLE = ?, WRITER =  ?, CONTENT = ? WHERE ID = ?";
+		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url, "PRACTICE2", "1111");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, title);
+			st.setString(2, writer);
+			st.setString(3, content);
+			st.setInt(4, id);
+
+			st.executeQuery();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return 0;
 	}
 
-	public int updateBoard() {
+	public int deleteBoard() {
 		return 0;
 	}
 
