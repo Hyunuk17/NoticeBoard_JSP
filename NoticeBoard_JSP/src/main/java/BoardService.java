@@ -138,8 +138,26 @@ public class BoardService {
 		return 0;
 	}
 
-	public int deleteBoard() {
+	public int deleteBoard(int id) {
+
+		String sql = "DELETE FROM BOARD WHERE ID = ?";
+		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url, "PRACTICE2", "1111");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			ResultSet rs = st.executeQuery();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return 0;
 	}
-
 }

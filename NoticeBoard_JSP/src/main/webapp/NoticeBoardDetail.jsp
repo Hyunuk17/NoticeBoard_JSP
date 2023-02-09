@@ -42,7 +42,7 @@
     <div class="container">
 
       <h3>작성된 글</h3>
-      <form action="update" class="col-12" method="post">
+      <form action="" class="col-12" method="post">
       <input type="hidden" name="id" id ="id" value="${n.id}">
         <div class="form-group mt-3">
           <label for="title" class="col-form-label">제목 :</label>
@@ -72,8 +72,8 @@
 
         <div class="form-group mt-3">
           <a href="list" style="text-decoration: none; color: white;" class="btn btn-dark"> List </a>
-          <button class="btn btn-primary">Update</button>
-          <button class="btn btn-danger ">Delete</button>
+          <input type="submit" value="Update" class="btn btn-primary" formaction="update2">
+          <input type="submit" value="Delete" class="btn btn-danger" formaction="delete">
         </div>
 
       </form>
